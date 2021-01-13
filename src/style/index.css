@@ -1,0 +1,22 @@
+/* header */
+header {
+    height: 70px;
+}
+
+.navbar-brand {
+    color: #333 !important;
+}
+
+.btn-wallet-connect {
+    margin-top: 5px;
+}
+
+/* home */
+#home-introduction {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+#home-ballots {
+    margin-top: 50px;
+}
