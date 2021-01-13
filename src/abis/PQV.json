@@ -1,0 +1,651 @@
+[
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getExponent",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"name": "level",
+				"type": "uint8"
+			}
+		],
+		"name": "isValid",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "account",
+				"type": "address"
+			},
+			{
+				"name": "level",
+				"type": "uint8"
+			}
+		],
+		"name": "addOwnership",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "ballotNum",
+				"type": "uint256"
+			}
+		],
+		"name": "proposalsLengthOf",
+		"outputs": [
+			{
+				"name": "length_",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "ballotNum",
+				"type": "uint256"
+			},
+			{
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "joinAt",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "newExponent",
+				"type": "uint256"
+			}
+		],
+		"name": "setExponent",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "ballotAmount",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "ballotName",
+				"type": "bytes32"
+			},
+			{
+				"name": "proposalNames",
+				"type": "bytes32[]"
+			},
+			{
+				"name": "ballotTimeLimit",
+				"type": "uint256"
+			}
+		],
+		"name": "createBallot",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "ballotNum",
+				"type": "uint256"
+			},
+			{
+				"name": "proposalNum",
+				"type": "uint256"
+			}
+		],
+		"name": "proposalOf",
+		"outputs": [
+			{
+				"name": "name_",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "newCVTAddress",
+				"type": "address"
+			}
+		],
+		"name": "setCVTAddress",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getCVTAddress",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "levelOf",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "ballotNum",
+				"type": "uint256"
+			}
+		],
+		"name": "winningProposalOf",
+		"outputs": [
+			{
+				"name": "winningProposal_",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalBallots",
+		"outputs": [
+			{
+				"name": "length_",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "oldOwner",
+				"type": "address"
+			},
+			{
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "ballotNum",
+				"type": "uint256"
+			}
+		],
+		"name": "tallyUp",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getMinimumTimeLimit",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "ballotNum",
+				"type": "uint256"
+			}
+		],
+		"name": "voterAt",
+		"outputs": [
+			{
+				"name": "weights_",
+				"type": "uint256"
+			},
+			{
+				"name": "voted_",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "account",
+				"type": "address"
+			},
+			{
+				"name": "level",
+				"type": "uint8"
+			}
+		],
+		"name": "changeOwnershipLevel",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "newMinimumTimeLimit",
+				"type": "uint256"
+			}
+		],
+		"name": "setMinimumTimeLimit",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "ballotNum",
+				"type": "uint256"
+			}
+		],
+		"name": "proposalsOf",
+		"outputs": [
+			{
+				"name": "names_",
+				"type": "bytes32[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "newRandomAddress",
+				"type": "address"
+			}
+		],
+		"name": "setRandomAddress",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "deleteOwnership",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "ballotNum",
+				"type": "uint256"
+			}
+		],
+		"name": "getBallotOf",
+		"outputs": [
+			{
+				"name": "name_",
+				"type": "bytes32"
+			},
+			{
+				"name": "currentTime_",
+				"type": "uint256"
+			},
+			{
+				"name": "timeLimit_",
+				"type": "uint256"
+			},
+			{
+				"name": "ended_",
+				"type": "bool"
+			},
+			{
+				"name": "winningProposal_",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "ballotName",
+				"type": "bytes32"
+			},
+			{
+				"name": "proposalNames",
+				"type": "bytes32[]"
+			}
+		],
+		"name": "createBallot",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getRandomAddress",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "ballotNum",
+				"type": "uint256"
+			}
+		],
+		"name": "winnerNameOf",
+		"outputs": [
+			{
+				"name": "winnerName_",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "ballotNum",
+				"type": "uint256"
+			},
+			{
+				"name": "proposals_",
+				"type": "uint256[]"
+			},
+			{
+				"name": "weights_",
+				"type": "uint256[]"
+			}
+		],
+		"name": "voteAt",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"name": "initialCVTAddress",
+				"type": "address"
+			},
+			{
+				"name": "initialRandomAddress",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "ballotName",
+				"type": "bytes32"
+			},
+			{
+				"indexed": true,
+				"name": "proposalName",
+				"type": "bytes32"
+			}
+		],
+		"name": "Create",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "who",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "ballotNum",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "Join",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "who",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "ballotNum",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "proposal",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "weights",
+				"type": "uint256"
+			}
+		],
+		"name": "Vote",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "newOwner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "level",
+				"type": "uint8"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	}
+]

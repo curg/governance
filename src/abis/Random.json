@@ -1,0 +1,28 @@
+[
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "random",
+		"outputs": [
+			{
+				"name": "randomNumber",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "randomNumber_",
+				"type": "uint256"
+			}
+		],
+		"name": "RandomNumber",
+		"type": "event"
+	}
+]

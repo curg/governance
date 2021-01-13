@@ -69,6 +69,13 @@ const Header = () => {
                                     })
                                 } to="/ballots">BALLOTS</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className={
+                                    classnames("nav-link", {
+                                        "active": location.pathname === '/token'
+                                    })
+                                } to="/token">CVT</Link>
+                            </li>
                             { (active && _account) && (
                                 <li className="nav-item">
                                     <div className="h3 mt-2">
