@@ -18,10 +18,10 @@ const AccountSideView = () => {
                 </div>
                 <div className="row">
                     <div className="col-md-4">
-                        <span className="card-subtitle">CGT</span>
+                        <span className="card-subtitle">CVT</span>
                     </div>
                     <div className="col-md-8">
-                        <h4>1000000 CGT</h4>
+                        <h4>1000000 CVT</h4>
                     </div>
                 </div>
             </>
