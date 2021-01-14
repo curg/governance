@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { accountState } from '../../state'
+import { balanceOf } from '../../core/cvt'
 
 const AccountSideView = () => {
     const [account, setAccount] = useRecoilState(accountState)
+    const [balance, setBalance] = useState()
+
+    useEffect(() => {
+        if(account) {
+            balanceOf(account.address).then(() => {
+                setBalance(balance)
+            });
+        }
+    }, [account])
 
     const RenderActive = () => {
         return (
@@ -21,7 +31,7 @@ const AccountSideView = () => {
                         <span className="card-subtitle">CVT</span>
                     </div>
                     <div className="col-md-8">
-                        <h4>1000000 CVT</h4>
+                        <h4>{balance ? balance : "0"} CVT</h4>
                     </div>
                 </div>
             </>
