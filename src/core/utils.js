@@ -1,3 +1,5 @@
+import Caver from 'caver-js'
+
 const Big = require('big.js')
 
 export const shortAddress = (address) => {
@@ -9,4 +11,8 @@ export const shortAddress = (address) => {
 
 export const formatBalance = (balance) => {
     return Big(balance.toString()).div(Big(10).pow(18)).toFixed(6)
+}
+
+export const stringToBytes = (text) => {
+    return Caver.utils.padRight(Caver.utils.fromAscii(text), 34)
 }

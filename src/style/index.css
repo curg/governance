@@ -20,3 +20,11 @@ header {
 #home-ballots {
     margin-top: 50px;
 }
+
+.mt-15 {
+    margin-top: 6rem!important;
+}
+
+.mb-15 {
+    margin-top: 6rem!important;
+}

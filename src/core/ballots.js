@@ -28,17 +28,17 @@ export const fetchBallots = async () => {
     if(window.klaytn) {
         let contract = getPQVContract();
         let numberOfBallots = await fetchTotalBallots();
-        let minimumToRead = 5;
+        let minimumToRead = 10;
         let list = [];
         for(var i = numberOfBallots-1; i >= numberOfBallots-minimumToRead; i--) {
             let result = await contract.methods.getBallotOf(i).call()
             let proposals = await contract.methods.proposalsOf(i).call()
-            proposals = proposals.map(x => Caver.utils.toUtf8(x))
+            let endTimestamp = Number(result.currentTime_) + Number(result.timeLimit_)
 
-            
             result.name_ = Caver.utils.toUtf8(result.name_)
-            result.currentTime_ = moment.unix(result.currentTime_).format("YYYY-MM-DD")
-            result.proposals = proposals
+            result.currentTime_ = moment.unix(result.currentTime_).format("YYYY-MM-DD HH:mm:ss")
+            result.endTime_ = moment.unix(endTimestamp).format("YYYY-MM-DD HH:mm:ss")
+            result.proposals = proposals.map(x => Caver.utils.toUtf8(x))
             list = [...list, result]
 
             if(i == 0) {

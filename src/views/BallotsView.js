@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
-import Caver from 'caver-js'
+import { Link } from 'react-router-dom'
 
 import AccountSideView from './components/AccountSideView'
 import BallotListView from './components/BallotListView'
@@ -25,10 +25,10 @@ const BallotsView = () => {
                 <div className="row mt-5 align-items-end">
                     <div className="col-lg-8">
                         <h2>안건</h2>
-                        <p className="p-0 m-0">CURG 거버넌스에서 진행한 투표 안건들 중 최근 5개만을 보여줍니다</p>
+                        <p className="p-0 m-0">CURG 거버넌스에서 진행한 투표 안건들 중 최근 10개만을 보여줍니다</p>
                     </div>
                     <div className="col-lg-4 text-right">
-                        <button type="button" className="btn btn-primary">새 안건 추가하기</button>
+                        <Link to={"/create/ballot"} className="btn btn-primary">새 안건 추가하기</Link>
                     </div>
                 </div>
             </div>

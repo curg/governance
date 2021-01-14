@@ -14,6 +14,7 @@ import Header from "./common/Header";
 import HomeView from './views/HomeView';
 import BallotsView from './views/BallotsView';
 import CVTView from './views/CVTView';
+import CreateBallotView from './views/CreateBallotView';
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
           <div className="App">
             <Header />
             <Switch>
+              <Route path="/create/ballot">
+                <CreateBallotView />
+              </Route>
               <Route path="/token">
                 <CVTView />
               </Route>
