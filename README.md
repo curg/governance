@@ -11,3 +11,15 @@
 
 **PQV**<br/>
 제곱 투표의 시빌 공격(Cybil Attack) 취약점을 해결한 확률적 제곱 투표(Probabilitc Quadratic Voting) 방식을 기반으로 두고 있다.
+
+**Klaytn**<br/>
+카카오 자회사 그라운드X 에서 개발한 이더리움 기반 블록체인으로 CURG 웹사이트에서는 이 Klaytn을 백엔드 서버로 이용한다.<br/>
+백엔드 코드가 어떻게 작성되었는지 궁금하다면 [여기](https://github.com/curg/v1)를 참고하면 된다.
+
+### ❗ TO-DO
+* Ballot List 보여주기 (완료)
+* Ballot 생성 (완료)
+* CVT 토큰 잔액 보여주기 (완료)
+* Ballot 투표 기능
+  * 제안 선택, 투표권 수량 입력 후 제출
+* 추가 바람.
