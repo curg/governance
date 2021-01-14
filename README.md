@@ -11,3 +11,6 @@
 
 **PQV**<br/>
 제곱 투표의 시빌 공격(Cybil Attack) 취약점을 해결한 확률적 제곱 투표(Probabilitc Quadratic Voting) 방식을 기반으로 두고 있다.
+
+**Klaytn**<br/>
+카카오 자회사 그라운드X 에서 개발한 이더리움 기반 블록체인으로 CURG 웹사이트에서는 이 Klaytn을 백엔드 서버로 이용한다.
