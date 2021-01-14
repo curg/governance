@@ -9,7 +9,7 @@ const AccountSideView = () => {
 
     useEffect(() => {
         if(account) {
-            balanceOf(account.address).then(() => {
+            balanceOf(account.address).then((balance) => {
                 setBalance(balance)
             });
         }

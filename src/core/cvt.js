@@ -1,6 +1,5 @@
 import Caver from 'caver-js'
 import constants from './constants'
-import moment from 'moment'
 
 let cvt_abi = require('../abis/CVT.json');
 
