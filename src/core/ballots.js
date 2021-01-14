@@ -2,12 +2,27 @@ import Caver from 'caver-js'
 import constants from './constants'
 import moment from 'moment'
 
+import { stringToBytes } from './utils'
+
 let pqv_abi = require('../abis/PQV.json');
 
 function getPQVContract() {
     let caver = new Caver(window.klaytn)
     let pqv = new caver.contract(pqv_abi, constants.PQV_ADDRESS);
     return pqv
+}
+
+export const createBallot = async (subject, proposals, timeLimit, account) => {
+    if(window.klaytn) {
+        let _subject = stringToBytes(subject)
+        let _proposals = proposals.map(x => stringToBytes(x))
+        let contract = getPQVContract()
+
+        const receipt = await contract.methods.createBallot(_subject, _proposals, timeLimit).send({ from: account, gas: "500000" })
+        return receipt
+    } else {
+        throw new Error("Unable to access klaytn")
+    }
 }
 
 export const fetchTotalBallots = async () => {

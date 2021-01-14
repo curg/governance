@@ -1,4 +1,4 @@
-import Caver from 'caver-js'
+import { utils } from 'ethers'
 
 const Big = require('big.js')
 
@@ -14,5 +14,5 @@ export const formatBalance = (balance) => {
 }
 
 export const stringToBytes = (text) => {
-    return Caver.utils.padRight(Caver.utils.fromAscii(text), 34)
+    return utils.formatBytes32String(text)
 }
