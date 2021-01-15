@@ -15,6 +15,7 @@ import BallotsView from './views/BallotsView';
 import CVTView from './views/CVTView';
 import CreateBallotView from './views/CreateBallotView';
 import VoteCreateView from './views/VoteCreateView';
+import VoteProceedView from './views/VoteProceedView';
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
           <div className="App">
             <Header />
             <Switch>
+              <Route path="/vote/proceed/:id">
+                <VoteProceedView />
+              </Route>
               <Route path="/vote/create/:id">
                 <VoteCreateView />
               </Route>

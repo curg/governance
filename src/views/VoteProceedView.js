@@ -2,35 +2,28 @@ import React, { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { Link, useRouteMatch } from 'react-router-dom'
 
-import { accountState, activeState } from '../state'
+import { activeState } from '../state'
 import { getBallot } from '../core/ballots'
 import VoteStepView from './components/VoteStepView'
 
-const VoteCreateView = () => {
-    const match = useRouteMatch('/vote/create/:id')
+const VoteProceedView = () => {
+    const match = useRouteMatch('/vote/proceed/:id')
     const active = useRecoilValue(activeState)
-    const account = useRecoilValue(accountState)
-
     const [ballot, setBallot] = useState({})
     const [id, setId] = useState(0)
-    const [alarm, setAlarm] = useState(null)
 
     useEffect(() => {
         if(active && match) {
             let id = match.params.id
-
-            // 투표 정보 가져오기
             getBallot(id).then(ballot => {
                 setId(id)
                 setBallot(ballot)
             })
-
-            // 투표권 정보 가져오기
         }
     }, [active])
 
     const handleSubmit = (event) => {
-        event.preventDefault()
+        event.preventDefault();
     }
 
     return (
@@ -40,14 +33,14 @@ const VoteCreateView = () => {
                 <div className="col-lg-6">
                     <div className="row">
                         <div className="col-lg-12">
-                            <VoteStepView activeId={1} />
+                            <VoteStepView activeId={2} />
                         </div>
                         <div className="col-lg-12 mt-5">
                             <div className="card">
                                 <div className="card-header">
                                     <h4 className="card-title">
-                                        <Link to="/ballots" className="btn btn-sm btn-ghost-secondary mr-2 mb-1"><i className="tio-chevron-left"></i></Link>
-                                        투표권 생성
+                                        <Link to={`/vote/create/${id}`} className="btn btn-sm btn-ghost-secondary mr-2 mb-1"><i className="tio-chevron-left"></i></Link>
+                                        투표 진행하기
                                     </h4>
                                 </div>
                                 <div className="card-body">
@@ -83,12 +76,35 @@ const VoteCreateView = () => {
                                             <span className="text-muted">{ ballot.endTime_ }</span>
                                         </div>
                                     </div>
+                                </div>
+                                <div className="card-footer">
                                     <div className="row">
-                                        <div className="col-md-6">
-                                            <label className="input-label">생성할 투표권 수량</label>
+                                        <div className="col-md-12">
+                                            <label className="input-label">안건 리스트</label>
                                         </div>
-                                        <div className="col-md-6 text-right">
-                                            <span className="input-label text-muted">현재 CVT : 0</span>
+                                    </div>
+                                    <div className="row">
+                                        {
+                                            ballot.proposals && ballot.proposals.map((value, index) => {
+                                                return (
+                                                    <div className="col-md-6 mb-3">
+                                                        <div class="form-control">
+                                                            <div class="custom-control custom-radio custom-radio-reverse">
+                                                                <input type="radio" class="custom-control-input" name="proposal" id={`proposal-${index}`} />
+                                                                <label class="custom-control-label media align-items-center" for={`proposal-${index}`}>
+                                                                    <i class="tio-agenda-view text-muted mr-2"></i>
+                                                                    <span class="media-body">{value}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                    <div className="row mt-2">
+                                        <div className="col-md-12">
+                                            <label className="input-label">투표권 수량 입력</label>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -97,17 +113,11 @@ const VoteCreateView = () => {
                                                 type="text" 
                                                 className="form-control"
                                                 placeholder="0" />
-                                            <p className="bg-light p-2 mt-2">
-                                                1 CVT는 1개의 투표권으로 교환됩니다.
-                                            </p>
                                         </div>
                                     </div>
-                                    <div className="row mt-2">
-                                        <div className="col-md-6">
-                                            <button type="submit" className="btn btn-sm btn-block btn-primary">투표권 생성</button>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <Link to={`/vote/proceed/${id}`} className="btn btn-sm btn-block btn-soft-secondary">다음 단계로 <i className="tio-chevron-right ml-1"></i></Link>
+                                    <div className="row mt-3">
+                                        <div className="col-md-12">
+                                            <button type="submit" className="btn btn-sm btn-block btn-primary"><i className="tio-send mr-1"></i>제출하기</button>
                                         </div>
                                     </div>
                                 </div>
@@ -121,4 +131,4 @@ const VoteCreateView = () => {
     )
 }
 
-export default VoteCreateView
+export default VoteProceedView

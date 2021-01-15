@@ -85,3 +85,11 @@ export const getBallot = async (id) => {
         throw new Error("unable to access klaytn")
     }   
 }
+
+export const getWeightAt = async (ballotId, address) => {
+    if(window.klaytn) {
+        let contract = getPQVContract();
+    } else {
+        throw new Error("unable to access klaytn")
+    }
+}
