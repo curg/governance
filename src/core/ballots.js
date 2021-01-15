@@ -50,6 +50,7 @@ export const fetchBallots = async () => {
             let proposals = await contract.methods.proposalsOf(i).call()
             let endTimestamp = Number(result.currentTime_) + Number(result.timeLimit_)
 
+            result.id = i
             result.name_ = Caver.utils.toUtf8(result.name_)
             result.currentTime_ = moment.unix(result.currentTime_).format("YYYY-MM-DD HH:mm:ss")
             result.endTime_ = moment.unix(endTimestamp).format("YYYY-MM-DD HH:mm:ss")
@@ -64,4 +65,23 @@ export const fetchBallots = async () => {
     } else {
         throw new Error("unable to access klaytn")
     }
+}
+
+export const getBallot = async (id) => {
+    if(window.klaytn) {
+        let contract = getPQVContract();
+        let result = await contract.methods.getBallotOf(id).call()
+        let proposals = await contract.methods.proposalsOf(id).call()
+        let endTimestamp = Number(result.currentTime_) + Number(result.timeLimit_)
+
+        result.id = id
+        result.name_ = Caver.utils.toUtf8(result.name_)
+        result.currentTime_ = moment.unix(result.currentTime_).format("YYYY-MM-DD HH:mm:ss")
+        result.endTime_ = moment.unix(endTimestamp).format("YYYY-MM-DD HH:mm:ss")
+        result.proposals = proposals.map(x => Caver.utils.toUtf8(x))
+
+        return result
+    } else {
+        throw new Error("unable to access klaytn")
+    }   
 }

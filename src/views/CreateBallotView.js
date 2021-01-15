@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { useRecoilState } from 'recoil'
 import { createBallot } from '../core/ballots'
@@ -80,7 +81,10 @@ const CreateBallotView = () => {
                     <div className="col-lg-5">
                         <div className="card">
                             <div className="card-header">
-                                <h4 className="card-title">새 안건 추가하기</h4>
+                                <h4 className="card-title">
+                                    <Link to="/ballots" className="btn btn-sm btn-ghost-secondary mr-2 mb-1"><i className="tio-chevron-left"></i></Link>
+                                    새 안건 추가하기
+                                </h4>
                             </div>
                             { receipt && (
                                 <div className="alert alert-soft-success card-alert">

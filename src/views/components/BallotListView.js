@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const ProposalView = ({ proposals, winner, ended }) => {
     return proposals.map((value, index) => {
@@ -38,7 +39,7 @@ const BallotListView = ({ ballots }) => {
                                 </h4>
                             </div>
                             <div className="col-md-6 text-right">
-                                
+                                {!item.ended_ && (<Link to={`/vote/create/${item.id}`} className="btn btn-sm btn-soft-success">투표하기</Link>)}
                             </div>
                         </div>
                     </div>

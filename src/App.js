@@ -2,8 +2,7 @@ import React from 'react'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import {
@@ -15,6 +14,7 @@ import HomeView from './views/HomeView';
 import BallotsView from './views/BallotsView';
 import CVTView from './views/CVTView';
 import CreateBallotView from './views/CreateBallotView';
+import VoteCreateView from './views/VoteCreateView';
 
 function App() {
   return (
@@ -23,6 +23,9 @@ function App() {
           <div className="App">
             <Header />
             <Switch>
+              <Route path="/vote/create/:id">
+                <VoteCreateView />
+              </Route>
               <Route path="/create/ballot">
                 <CreateBallotView />
               </Route>
