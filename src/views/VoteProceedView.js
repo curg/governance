@@ -2,28 +2,98 @@ import React, { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { Link, useRouteMatch } from 'react-router-dom'
 
-import { activeState } from '../state'
-import { getBallot } from '../core/ballots'
+import { accountState, activeState } from '../state'
+import { getBallot, getWeightAt, voteAt } from '../core/ballots'
 import VoteStepView from './components/VoteStepView'
 
 const VoteProceedView = () => {
     const match = useRouteMatch('/vote/proceed/:id')
     const active = useRecoilValue(activeState)
+    const account = useRecoilValue(accountState)
+
     const [ballot, setBallot] = useState({})
+    const [errors, setErrors] = useState({})
+    const [receipt, setReceipt] = useState(null)
+    const [weightList, setWeightList] = useState([])
+    const [voted, setVoted] = useState(false)
+    const [weight, setWeight] = useState(0)
     const [id, setId] = useState(0)
 
     useEffect(() => {
-        if(active && match) {
-            let id = match.params.id
-            getBallot(id).then(ballot => {
-                setId(id)
-                setBallot(ballot)
-            })
+        if(active && account && match) {
+            initialize()
         }
     }, [active])
 
+    const initialize = () => {
+        let id = match.params.id
+
+        getBallot(id).then(ballot => {
+            setId(id)
+            setBallot(ballot)
+
+            let _weightList = ballot.proposals.map(x => "")
+            setWeightList(_weightList)
+        })
+
+        getWeightAt(id, account.address).then(res => {
+            setWeight(res.weights_)
+            setVoted(res.voted_)
+        })
+    }
+
+    const setWeightValue = (index, value) => {
+        let weights = [...weightList]
+        weights[index] = value
+        setWeightList(weights)
+    }
+
+    const validate = () => {
+        let errors = {}
+
+        for(var i = 0; i < weightList.length; i++) {
+            if(weightList[i] === "") {
+                errors["weight"] = "투표권 수를 입력해주세요."
+                setErrors(errors)
+                return false
+            }
+
+            if(!Number.isInteger(Number(weightList[i]))) {
+                errors["weight"] = "숫자만 입력 가능합니다."
+                setErrors(errors)
+                return false
+            }
+        }
+
+        let sum = weightList.reduce((a, b) => Number(a) + Number(b));
+        if(sum > Number(weight)) {
+            errors["weight"] = "보유한 투표권 보다 많은 수를 투표할 수 없습니다."
+            setErrors(errors)
+            return false
+        }
+
+        setErrors({})
+        return true;
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
+        if(validate() && active && account) {
+            let proposals = weightList
+                .map((x,idx) => { return {id:idx, v: Number(x)} } )
+                .filter(x => x.v > 0)
+                .map(x => x.id)
+            let weights = weightList
+                .map((x,idx) => { return {id:idx, v: Number(x)} })
+                .filter(x => x.v > 0)
+                .map(x => x.v)
+
+            voteAt(id, proposals, weights, account.address)
+                .then(receipt => {
+                    initialize()
+                    setReceipt(receipt)
+                })
+        }
     }
 
     return (
@@ -43,6 +113,18 @@ const VoteProceedView = () => {
                                         투표 진행하기
                                     </h4>
                                 </div>
+                                { (receipt && receipt.status) && (
+                                    <div className="alert alert-soft-success card-alert">
+                                        <label className="mb-0">투표가 완료되었습니다.</label>
+                                        <span className="font-size-sm">{ receipt.transactionHash }</span>
+                                    </div>
+                                ) }
+                                { (receipt && !receipt.status) && (
+                                    <div className="alert alert-soft-danger card-alert">
+                                        <label className="mb-0">이미 투표를 완료한 경우, 투표가 실패됩니다.</label>
+                                        <span className="font-size-sm">{ receipt.transactionHash }</span>
+                                    </div>
+                                ) }
                                 <div className="card-body">
                                     <div className="row form-group">
                                         <div className="col-md-3">
@@ -57,7 +139,7 @@ const VoteProceedView = () => {
                                             <label className="text-dark"><i className="tio-ticket mr-1"></i>보유 투표권 수</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <span className="text-muted">0</span>
+                                            <span className="text-muted">{ weight }</span>
                                         </div>
                                     </div>
                                     <div className="row form-group">
@@ -87,37 +169,37 @@ const VoteProceedView = () => {
                                         {
                                             ballot.proposals && ballot.proposals.map((value, index) => {
                                                 return (
-                                                    <div className="col-md-6 mb-3">
+                                                    <div className="col-md-6 mb-3" key={`proposal-${index}`}>
                                                         <div class="form-control">
-                                                            <div class="custom-control custom-radio custom-radio-reverse">
-                                                                <input type="radio" class="custom-control-input" name="proposal" id={`proposal-${index}`} />
-                                                                <label class="custom-control-label media align-items-center" for={`proposal-${index}`}>
-                                                                    <i class="tio-agenda-view text-muted mr-2"></i>
-                                                                    <span class="media-body">{value}</span>
-                                                                </label>
-                                                            </div>
+                                                            <i className="tio-agenda-view-outlined mr-2"></i>
+                                                            <span class="media-body">{value}</span>
                                                         </div>
+                                                        <input 
+                                                            type="text" 
+                                                            className="form-control form-control-flush"
+                                                            value={weightList[index]}
+                                                            onChange={(e) => setWeightValue(index, e.target.value)}
+                                                            placeholder="0" />
                                                     </div>
                                                 )
                                             })
                                         }
                                     </div>
-                                    <div className="row mt-2">
-                                        <div className="col-md-12">
-                                            <label className="input-label">투표권 수량 입력</label>
+                                    { errors["weight"] && (
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                <p className="text-danger">{errors["weight"]}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <input 
-                                                type="text" 
-                                                className="form-control"
-                                                placeholder="0" />
-                                        </div>
-                                    </div>
+                                    ) }
                                     <div className="row mt-3">
                                         <div className="col-md-12">
-                                            <button type="submit" className="btn btn-sm btn-block btn-primary"><i className="tio-send mr-1"></i>제출하기</button>
+                                            { !voted && (
+                                                <button type="submit" className="btn btn-sm btn-block btn-primary"><i className="tio-send mr-1"></i>제출하기</button>
+                                            ) }
+                                            { voted && (
+                                                <button type="button" className="btn btn-sm btn-block btn-secondary" disabled={true}>어이쿠 이런, 이미 투표를 진행하셨네요</button>
+                                            ) }
                                         </div>
                                     </div>
                                 </div>

@@ -3,7 +3,9 @@ import { useRecoilValue } from 'recoil'
 import { Link, useRouteMatch } from 'react-router-dom'
 
 import { accountState, activeState } from '../state'
-import { getBallot } from '../core/ballots'
+import { getBallot, getWeightAt, joinAt } from '../core/ballots'
+import { balanceOf } from '../core/cvt'
+
 import VoteStepView from './components/VoteStepView'
 
 const VoteCreateView = () => {
@@ -11,26 +13,69 @@ const VoteCreateView = () => {
     const active = useRecoilValue(activeState)
     const account = useRecoilValue(accountState)
 
+    const [amount, setAmount] = useState("")
+    const [errors, setErrors] = useState({})
     const [ballot, setBallot] = useState({})
+    const [weight, setWeight] = useState(0)
+    const [cvtToken, setCVTToken] = useState(0)
+
     const [id, setId] = useState(0)
     const [alarm, setAlarm] = useState(null)
 
     useEffect(() => {
-        if(active && match) {
-            let id = match.params.id
-
-            // 투표 정보 가져오기
-            getBallot(id).then(ballot => {
-                setId(id)
-                setBallot(ballot)
-            })
-
-            // 투표권 정보 가져오기
+        if(active && account && match) {
+            initialize()
         }
     }, [active])
 
+    const initialize = () => {
+        let id = match.params.id
+
+        // 투표 정보 가져오기
+        getBallot(id).then(ballot => {
+            setId(id)
+            setBallot(ballot)
+        })
+
+        // 투표권 정보 가져오기
+        getWeightAt(id, account.address).then(res => {
+            setWeight(res.weights_)
+        })
+
+        // CVT 수량 가져오기
+        balanceOf(account.address).then(balance => {
+            setCVTToken(balance)
+        })
+    }
+
+    const validate = () => {
+        let hasError = false;
+        let errors = {}
+
+        if(amount === "") {
+            errors["amount"] = "수량을 입력해주세요."
+            hasError = true
+        } else if(!Number.isInteger(Number(amount))) {
+            errors["amount"] = "숫자만 입력 가능합니다."
+            hasError = true
+        } else if(Number(amount) > Number(cvtToken)) {
+            errors["amount"] = "보유한 CVT 토큰 개수 만큼만 교환 가능 합니다."
+            hasError = true
+        }
+
+        setErrors(errors)
+        return !hasError
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault()
+        
+        if(validate() && active) {
+            joinAt(id, amount, account.address).then(receipt => {
+                setAlarm({ receipt: receipt })
+                initialize()
+            })
+        }
     }
 
     return (
@@ -50,6 +95,18 @@ const VoteCreateView = () => {
                                         투표권 생성
                                     </h4>
                                 </div>
+                                { (alarm && alarm.receipt.status) && (
+                                    <div className="alert alert-soft-success card-alert">
+                                        <label className="mb-0">투표권이 생성되었습니다.</label>
+                                        <span className="font-size-sm">{ alarm.receipt.transactionHash }</span>
+                                    </div>
+                                ) }
+                                { (alarm && !alarm.receipt.status) && (
+                                    <div className="alert alert-soft-danger card-alert">
+                                        <label className="mb-0">실패: 이미 투표를 완료했거나 투표시간이 지난 경우 투표권을 생성할 수 없습니다</label>
+                                        <span className="font-size-sm">{ alarm.receipt.transactionHash }</span>
+                                    </div>
+                                ) }
                                 <div className="card-body">
                                     <div className="row form-group">
                                         <div className="col-md-3">
@@ -64,7 +121,7 @@ const VoteCreateView = () => {
                                             <label className="text-dark"><i className="tio-ticket mr-1"></i>보유 투표권 수</label>
                                         </div>
                                         <div className="col-md-9">
-                                            <span className="text-muted">0</span>
+                                            <span className="text-muted">{ weight }</span>
                                         </div>
                                     </div>
                                     <div className="row form-group">
@@ -88,7 +145,7 @@ const VoteCreateView = () => {
                                             <label className="input-label">생성할 투표권 수량</label>
                                         </div>
                                         <div className="col-md-6 text-right">
-                                            <span className="input-label text-muted">현재 CVT : 0</span>
+                                            <span className="input-label text-muted">현재 CVT : {cvtToken}</span>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -96,7 +153,10 @@ const VoteCreateView = () => {
                                             <input 
                                                 type="text" 
                                                 className="form-control"
+                                                value={amount}
+                                                onChange={e => setAmount(e.target.value)}
                                                 placeholder="0" />
+                                            { errors["amount"] && (<p className="text-danger">{errors["amount"]}</p>) }
                                             <p className="bg-light p-2 mt-2">
                                                 1 CVT는 1개의 투표권으로 교환됩니다.
                                             </p>

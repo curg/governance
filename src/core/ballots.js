@@ -18,7 +18,8 @@ export const createBallot = async (subject, proposals, timeLimit, account) => {
         let _proposals = proposals.map(x => stringToBytes(x))
         let contract = getPQVContract()
 
-        const receipt = await contract.methods.createBallot(_subject, _proposals, timeLimit).send({ from: account, gas: "500000" })
+        const receipt = await contract.methods.createBallot(_subject, _proposals, timeLimit)
+                            .send({ from: account, gas: "500000" })
         return receipt
     } else {
         throw new Error("Unable to access klaytn")
@@ -89,7 +90,41 @@ export const getBallot = async (id) => {
 export const getWeightAt = async (ballotId, address) => {
     if(window.klaytn) {
         let contract = getPQVContract();
+        let result = await contract.methods.voterAt(ballotId).call({ from: address })
+        return result
     } else {
         throw new Error("unable to access klaytn")
     }
+}
+
+export const joinAt = async (ballotId, amount, address) => {
+    if(window.klaytn) {
+        let contract = getPQVContract()
+        const receipt = await contract.methods.joinAt(ballotId, amount)
+                            .send({ from: address, gas: "100000" })
+        return receipt
+    } else {
+        throw new Error("unable to access klaytn")
+    }
+}
+
+export const voteAt = async (ballotId, proposals, votes, address) => {
+    if(window.klaytn) {
+        let contract = getPQVContract()
+        const receipt = await contract.methods.voteAt(ballotId, proposals, votes)
+                            .send({ from: address, gas: "500000" })
+        return receipt
+    } else {
+        throw new Error("unable to access klaytn")       
+    }
+}
+
+export const tallyUp = async (ballotId, address) => {
+    if(window.klaytn) {
+        let contract = getPQVContract()
+        const receipt = await contract.methods.tallyUp(ballotId).send({ from: address, gas: "500000" })
+        return receipt
+    } else {
+        throw new Error("unable to access klaytn")
+    }   
 }
