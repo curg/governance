@@ -3,19 +3,22 @@ import {
   BrowserRouter as Router,
   Switch,
   Route
-} from "react-router-dom";
+} from "react-router-dom"
 
 import {
   RecoilRoot
 } from 'recoil'
 
-import Header from "./common/Header";
-import HomeView from './views/HomeView';
-import BallotsView from './views/BallotsView';
-import CVTView from './views/CVTView';
-import CreateBallotView from './views/CreateBallotView';
-import VoteCreateView from './views/VoteCreateView';
-import VoteProceedView from './views/VoteProceedView';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
+import Header from "./common/Header"
+import HomeView from './views/HomeView'
+import BallotsView from './views/BallotsView'
+import CVTView from './views/CVTView'
+import CreateBallotView from './views/CreateBallotView'
+import VoteCreateView from './views/VoteCreateView'
+import VoteProceedView from './views/VoteProceedView'
 
 function App() {
   return (
@@ -45,8 +48,11 @@ function App() {
             </Switch>
           </div>
         </Router>
+        <ToastContainer 
+          autoClose={10000}
+          hideProgressBar={true} />
     </RecoilRoot>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -42,20 +42,11 @@ export const fetchTotalBallots = async () => {
 
 export const fetchBallots = async () => {
     if(window.klaytn) {
-        let contract = getPQVContract();
         let numberOfBallots = await fetchTotalBallots();
         let minimumToRead = 10;
         let list = [];
         for(var i = numberOfBallots-1; i >= numberOfBallots-minimumToRead; i--) {
-            let result = await contract.methods.getBallotOf(i).call()
-            let proposals = await contract.methods.proposalsOf(i).call()
-            let endTimestamp = Number(result.currentTime_) + Number(result.timeLimit_)
-
-            result.id = i
-            result.name_ = Caver.utils.toUtf8(result.name_)
-            result.currentTime_ = moment.unix(result.currentTime_).format("YYYY-MM-DD HH:mm:ss")
-            result.endTime_ = moment.unix(endTimestamp).format("YYYY-MM-DD HH:mm:ss")
-            result.proposals = proposals.map(x => Caver.utils.toUtf8(x))
+            let result = await getBallot(i)
             list = [...list, result]
 
             if(i == 0) {
@@ -79,6 +70,7 @@ export const getBallot = async (id) => {
         result.name_ = Caver.utils.toUtf8(result.name_)
         result.currentTime_ = moment.unix(result.currentTime_).format("YYYY-MM-DD HH:mm:ss")
         result.endTime_ = moment.unix(endTimestamp).format("YYYY-MM-DD HH:mm:ss")
+        result.passed = moment.unix(endTimestamp).isBefore(moment())
         result.proposals = proposals.map(x => Caver.utils.toUtf8(x))
 
         return result
@@ -122,7 +114,7 @@ export const voteAt = async (ballotId, proposals, votes, address) => {
 export const tallyUp = async (ballotId, address) => {
     if(window.klaytn) {
         let contract = getPQVContract()
-        const receipt = await contract.methods.tallyUp(ballotId).send({ from: address, gas: "500000" })
+        const receipt = await contract.methods.tallyUp(ballotId).send({ from: address, gas: "5000000" })
         return receipt
     } else {
         throw new Error("unable to access klaytn")

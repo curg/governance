@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom'
 
 import AccountSideView from './components/AccountSideView'
 import BallotListView from './components/BallotListView'
-import { activeState } from '../state'
+import { activeState, ballotState } from '../state'
 import { fetchBallots } from '../core/ballots'
 
 const BallotsView = () => {
     const [active, setActive] = useRecoilState(activeState)
-    const [ballots, setBallots] = useState([])
+    const [ballots, setBallots] = useRecoilState(ballotState)
 
     useEffect(() => {
         if(active) {
@@ -34,7 +34,7 @@ const BallotsView = () => {
             </div>
             <div className="row mt-5">
                 <div className="col-md-9">
-                    <BallotListView ballots={ballots} />
+                    <BallotListView />
                 </div>
                 <div className="col-md-3">
                     <AccountSideView />

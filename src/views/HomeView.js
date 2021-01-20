@@ -3,11 +3,11 @@ import { useRecoilState } from 'recoil'
 
 import BallotListView from './components/BallotListView'
 import { fetchBallots } from '../core/ballots'
-import { activeState } from '../state'
+import { activeState, ballotState } from '../state'
 
 const HomeView = () => {
     const [active, setActive] = useRecoilState(activeState)
-    const [ballots, setBallots] = useState([])
+    const [ballots, setBallots] = useRecoilState(ballotState)
 
     useEffect(() => {
         if(active) {
@@ -32,7 +32,7 @@ const HomeView = () => {
                     <p className="lead">CURG의 지난/현재 안건들을 보여줍니다</p>
                 </div>
                 <div className="col-md-8 mb-4">
-                    <BallotListView ballots={ballots} />
+                    <BallotListView />
                 </div>
             </div>
         </div>
