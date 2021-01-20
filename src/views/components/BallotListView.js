@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import { toast } from 'react-toastify'
 
 import { accountState, ballotState } from '../../state'
-import { getBallot, tallyUp } from '../../core/ballots'
+import { getBallot, tallyUp, getVoteEvents } from '../../core/ballots'
 
 const ProposalView = ({ proposals, winner, ended }) => {
     return proposals.map((value, index) => {

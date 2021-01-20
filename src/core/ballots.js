@@ -120,3 +120,18 @@ export const tallyUp = async (ballotId, address) => {
         throw new Error("unable to access klaytn")
     }   
 }
+
+export const getVoteEvents = async (ballotId) => {
+    if(window.klaytn) {
+        let contract = getPQVContract()
+        console.info(contract.events)
+        const events = await contract.getPastEvents("Vote", {
+            filter: {ballotNum: Number(ballotId)},
+            fromBlock: 0,
+            toBlock: 'latest'
+        })
+        return events
+    } else {
+        throw new Error("unable to access klaytn")
+    }
+}
