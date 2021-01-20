@@ -72,7 +72,7 @@ const BallotListView = () => {
                             </div>
                             <div className="col-md-6 text-right">
                                 {!item.ended_ && !item.passed && (<Link to={`/vote/create/${item.id}`} className="btn btn-sm btn-soft-success">투표하기</Link>)}
-                                {!item.ended_ && item.passed && (<button className="btn btn-sm btn-soft-danger" onClick={() => handleTallyUp(item.id)}>결과보기</button>)}
+                                {!item.ended_ && item.passed && (<button className="btn btn-sm btn-soft-danger" onClick={() => handleTallyUp(item.id)}>개표하기</button>)}
                             </div>
                         </div>
                     </div>
