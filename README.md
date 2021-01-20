@@ -14,7 +14,8 @@
 
 **Klaytn**<br/>
 카카오 자회사 그라운드X 에서 개발한 이더리움 기반 블록체인으로 CURG 웹사이트에서는 이 Klaytn을 백엔드 서버로 이용한다.<br/>
-백엔드 코드가 어떻게 작성되었는지 궁금하다면 [여기](https://github.com/curg/v1)를 참고하면 된다.
+백엔드 코드가 어떻게 작성되었는지 궁금하다면 [여기](https://github.com/curg/v1)를 참고하면 된다.<br/><br/>
+클레이튼에서는 web3.js대신 caver.js를 이용해서 Klaytn 서버와 통신한다.
 
 ### ❗ TO-DO
 * Ballot List 보여주기 (완료)
