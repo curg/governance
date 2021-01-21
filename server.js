@@ -13,5 +13,5 @@ app.use(cors())
 app.use(express.static(path.join(__dirname, 'build')))
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`CURG governance web server listening at http://localhost:${port}`)
 })
