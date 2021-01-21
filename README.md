@@ -24,7 +24,7 @@
 * Ballot 투표 기능 (완료)
   * 제안 선택, 투표권 수량 입력 후 제출 (완료)
 * 개표하기(tallyUp) 기능 (완료)
-* Vote event 정보를 조회해서 투표 수 조회해서 테이블로 보여주기
-* Dockernize 하기
+* Vote event 정보를 조회해서 투표 수 조회해서 테이블로 보여주기 (완료)
+* Dockernize 하기 (완료)
 * recoiljs를 잘 활용해서 상태관리를 깔끔하게 정리하기
 * Installation Guide 작성하기
