@@ -124,7 +124,6 @@ export const tallyUp = async (ballotId, address) => {
 export const getVoteEvents = async (ballotId) => {
     if(window.klaytn) {
         let contract = getPQVContract()
-        console.info(contract.events)
         const events = await contract.getPastEvents("Vote", {
             filter: {ballotNum: Number(ballotId)},
             fromBlock: 0,

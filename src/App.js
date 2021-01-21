@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Header from "./common/Header"
 import HomeView from './views/HomeView'
 import BallotsView from './views/BallotsView'
+import BallotDetailView from './views/BallotDetailView'
 import CVTView from './views/CVTView'
 import CreateBallotView from './views/CreateBallotView'
 import VoteCreateView from './views/VoteCreateView'
@@ -27,6 +28,9 @@ function App() {
           <div className="App">
             <Header />
             <Switch>
+              <Route path="/vote/detail/:id">
+                <BallotDetailView />
+              </Route>
               <Route path="/vote/proceed/:id">
                 <VoteProceedView />
               </Route>
