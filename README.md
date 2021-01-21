@@ -4,7 +4,7 @@
 
 ### 설치하기
 ```sh
-$ docker built -t curg .
+$ docker build -t curg .
 $ docker run -d -p 3000:3000 curg
 ```
 
