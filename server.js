@@ -12,6 +12,10 @@ app.use(cors())
 
 app.use(express.static(path.join(__dirname, 'build')))
 
+app.get("*", (req, res) => {
+    res.send(express.static(path.join(__dirname, "build/index.html")))
+})
+
 app.listen(port, () => {
     console.log(`CURG governance web server listening at http://localhost:${port}`)
 })
