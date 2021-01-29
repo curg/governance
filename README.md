@@ -2,6 +2,11 @@
 ### ⭐️ 소개
 커그 연구 그룹의 내부 안건 투표를 위한 웹 사이트
 
+### Ainize
+[![Run on Ainize](https://ainize.ai/images/run_on_ainize_button.svg)](https://master-governance-curg.endpoint.ainize.ai/)
+
+https://ainize.web.app/redirect?git_repo=https://github.com/curg/governance
+
 ### 설치하기
 ```sh
 $ docker build -t curg .
